@@ -2,6 +2,7 @@ STORAGE: NONE
 NUGET
   remote: https://api.nuget.org/v3/index.json
     FSharp.Core (9.0.202)
+    managedwifi (1.1)
 
 GROUP Tests
 STORAGE: NONE
