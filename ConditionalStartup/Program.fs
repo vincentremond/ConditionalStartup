@@ -17,7 +17,10 @@ module Process =
             ProcessStartInfo(fileName, arguments, UseShellExecute = false, WorkingDirectory = workingDirectory)
 
         let process_ = new Process(StartInfo = processStartInfo)
-        process_.Start() |> ignore
+        let started = process_.Start()
+        if not started then
+            failwithf $"Failed to start process {fileName} with arguments {arguments}"
+        
 
 let getCurrentWifiSsid () =
     let wlanClient = WlanClient()
@@ -41,10 +44,11 @@ match currentSsid with
 | @"Livebox-C390" ->
     AnsiConsole.markupLineInterpolated $"Connected to [green]{currentSsid}[/]."
 
-    AnsiConsole.markupLine "Starting [green]Google Chrome[/] with [green]Profile 1[/]."
+    AnsiConsole.markupLine "Starting [green]Google Chrome[/] with [green]Profile 2[/]."
 
-    Process.fireAndForget "C:\Program Files\Google\Chrome\Application\chrome.exe" "C:\Program Files\Google\Chrome\Application" [
-        "--profile-directory=\"Profile 2\""
-    ]
+    Process.fireAndForget
+        "C:\Program Files\Google\Chrome\Application\chrome.exe"
+        "C:\Program Files\Google\Chrome\Application"
+        [ "--profile-directory=\"Profile 2\"" ]
 
 | other -> AnsiConsole.markupLineInterpolated $"Connected to [yellow]{other}[/]. Nothing to do."
