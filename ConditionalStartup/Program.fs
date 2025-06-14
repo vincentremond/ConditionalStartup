@@ -18,9 +18,9 @@ module Process =
 
         let process_ = new Process(StartInfo = processStartInfo)
         let started = process_.Start()
+
         if not started then
             failwithf $"Failed to start process {fileName} with arguments {arguments}"
-        
 
 let getCurrentWifiSsid () =
     let wlanClient = WlanClient()
